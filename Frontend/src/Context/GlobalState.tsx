@@ -2,6 +2,7 @@ import { PropsWithChildren, useCallback, useEffect } from 'react';
 import globalContext from './globalContext';
 import React from 'react';
 import { AboutMeModel } from '../Types/AboutMe';
+import { Column } from '../Types/GoogleSheet';
 import { ExperienceModel } from '../Types/Experiences';
 import { ProjectModel } from '../Types/Project';
 
@@ -24,48 +25,24 @@ const GlobalState: React.FC<PropsWithChildren> = ({ children }) => {
         'Access-Control-Allow-Credentials': 'true'
       },
       method: 'GET'
-    }).then((r) => r.json());
+    })
+      .then((r) => {
+        return r.json();
+      })
+      .catch((e) => console.log(e));
   };
 
   const getAboutMeData = useCallback(async () => {
-    interface Asection {
-      id: number;
-      title: string;
-      descriptions: string[];
-    }
-    const aboutMeData: AboutMeModel[] = [];
-    console.log('fetching about me data');
-    await fetch('http://localhost:8000/api/aboutme', {
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-        'Access-Control-Allow-Credentials': 'true'
-      }
-    })
-      .then((r) => r.json())
-      .then((r) => {
-        r.map((section: Asection, index: number) => {
-          aboutMeData.push({
-            id: index,
-            title: section.title,
-            description: section.descriptions || []
-          });
-        });
-      });
+    const data = await getSheetData('aboutme');
+    const sections = data[0].sections.map((section: Column, index: number) => {
+      return {
+        id: index,
+        title: section.header,
+        description: section.values
+      };
+    });
 
-    setAboutMeData(aboutMeData);
-
-    // const data = await getSheetData('aboutme');
-    // const sections = data[0].sections.map((section: Column, index: number) => {
-    //   return {
-    //     id: index,
-    //     title: section.header,
-    //     description: section.values
-    //   };
-    // });
-
-    //setAboutMeData(sections);
+    setAboutMeData(sections);
   }, []);
 
   const getExperienceData = useCallback(async () => {

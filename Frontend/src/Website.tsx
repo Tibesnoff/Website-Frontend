@@ -26,6 +26,11 @@ const LoadingComponent = () => <div>Loading...</div>;
 
 const Error404 = () => <div>404 Page Not Found</div>;
 
+const WordpressRedirect = () => {
+  window.location.href = 'https://tylerbesnoff.wordpress.com/';
+  return <div>Redirecting...</div>;
+};
+
 const Website = () => {
   const { loading } = useContext(globalContext) as globalContextType;
 
@@ -36,6 +41,7 @@ const Website = () => {
       <Route path='/experiences' element={<Experiences />} />
       <Route path='/projects' element={<ProjectPage />} />
       <Route path='/projects/:title' element={loading ? <LoadingComponent /> : <ProjectDetail />} />
+      <Route path='/wordpress' element={<WordpressRedirect />} />
       <Route path='*' element={<Error404 />} />
     </Routes>
   );
@@ -47,6 +53,7 @@ const Website = () => {
       <Route path='/experiences' element={<LoadingComponent />} />
       <Route path='/projects' element={<LoadingComponent />} />
       <Route path='/projects/:title' element={<LoadingComponent />} />
+      <Route path='/wordpress' element={<WordpressRedirect />} />
       <Route path='*' element={<Error404 />} />
     </Routes>
   );
