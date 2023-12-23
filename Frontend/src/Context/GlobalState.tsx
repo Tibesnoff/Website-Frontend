@@ -2,12 +2,13 @@ import { PropsWithChildren, useCallback, useEffect } from 'react';
 import globalContext from './globalContext';
 import React from 'react';
 import { AboutMeModel } from '../Types/AboutMe';
-import { Column } from '../Types/GoogleSheet';
 import { ExperienceModel } from '../Types/Experiences';
 import { ProjectModel } from '../Types/Project';
+import { IJsonResponse } from '../Types/jsonResponse';
 
 const endpoint = process.env.REACT_APP_API_URL;
 const apiKey = process.env.REACT_APP_API_KEY;
+const newAPIEndpoint = process.env.REACT_APP_NEW_API_URL;
 
 const GlobalState: React.FC<PropsWithChildren> = ({ children }) => {
   const [loading, setLoading] = React.useState<boolean>(false);
@@ -33,16 +34,24 @@ const GlobalState: React.FC<PropsWithChildren> = ({ children }) => {
   };
 
   const getAboutMeData = useCallback(async () => {
-    const data = await getSheetData('aboutme');
-    const sections = data[0].sections.map((section: Column, index: number) => {
-      return {
-        id: index,
-        title: section.header,
-        description: section.values
-      };
-    });
-
-    setAboutMeData(sections);
+    await fetch(`${newAPIEndpoint}api/aboutme`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+        'Access-Control-Allow-Credentials': 'true'
+      },
+      method: 'GET'
+    })
+      .then(async (r) => (await r.json()) as IJsonResponse)
+      .then((r) => {
+        if (r.success) {
+          setAboutMeData(r.data);
+        } else {
+          console.log(r.error, r.message);
+        }
+      })
+      .catch((e) => console.log(e));
   }, []);
 
   const getExperienceData = useCallback(async () => {

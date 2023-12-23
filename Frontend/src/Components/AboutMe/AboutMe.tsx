@@ -19,8 +19,8 @@ const AboutMe = () => {
 
   const renderDescription = (paragraph: string, index: number, id: number) => {
     return (
-      <div className='p-4 pl-8 w-2/3'>
-        <p key={`${id}-${index}`}>{paragraph}</p>
+      <div className='p-4 pl-8 w-2/3' key={`${id}-${index}`}>
+        <p>{paragraph}</p>
       </div>
     );
   };
