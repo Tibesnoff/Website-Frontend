@@ -25,10 +25,9 @@ const Navbar = () => {
         <a href='/projects'>Projects</a>
         <div className={`absolute w-full top-12 left-0 z-10 flex-col border-2 border-black flex ${showProjects ? '' : 'hidden'}`}>
           {projectsData.map((project) => {
-            const title = project.title.split('-')[0];
             return (
               <div key={project.id} className='border-t-2 w-auto border-black bg-blue-100 hover:bg-blue-200 p-3'>
-                <a href={`/projects/${title.replaceAll(' ', '').toLowerCase()}`}>{title}</a>
+                <a href={`/projects/${project.title.replaceAll(' ', '').toLowerCase()}`}>{project.title}</a>
               </div>
             );
           })}
@@ -47,15 +46,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-/*
-<div>
-            <a href="/projects/recodejavaapp">Recode Java App</a>
-            <a href="/projects/processdeadlocksimulation">
-              Process Deadlock Simulation
-            </a>
-            <a href="/projects/discordbot">Discord Bot</a>
-            <a href="/projects/randomfamilyguy">Random Family Guy</a>
-            <a href="/projects/rightpay">Right Pay</a>
-          </div>
-*/

@@ -72,17 +72,24 @@ const GlobalState: React.FC<PropsWithChildren> = ({ children }) => {
   }, []);
 
   const getProjectData = useCallback(async () => {
-    const data = await getSheetData('projects');
-    const sections = data.map((project: ProjectModel, index: number) => {
-      return {
-        id: index,
-        title: project.title,
-        description: project.description,
-        githublink: project.githublink
-      };
-    });
-
-    setProjectsData(sections);
+    await fetch(`${newAPIEndpoint}api/projects`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+        'Access-Control-Allow-Credentials': 'true'
+      },
+      method: 'GET'
+    })
+      .then(async (r) => (await r.json()) as IJsonResponse)
+      .then((r) => {
+        if (r.success) {
+          setProjectsData(r.data);
+        } else {
+          console.log(r.error, r.message);
+        }
+      })
+      .catch((e) => console.log(e));
   }, []);
 
   const getAllData = useCallback(async () => {
