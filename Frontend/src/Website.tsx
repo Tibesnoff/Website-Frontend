@@ -8,6 +8,7 @@ import { globalContextType } from './Types/globalContextType';
 import Experiences from './Components/Experiences/Experiences';
 import ProjectPage from './Components/Projects/ProjectPage';
 import Project from './Components/Projects/Project';
+import Resume from './Components/Resume/Resume';
 
 const ProjectDetail = () => {
   const { title } = useParams<{ title: string }>(); // Get the project title from the URL
@@ -40,7 +41,8 @@ const Website = () => {
       <Route path='/aboutme' element={<AboutMe />} />
       <Route path='/experiences' element={<Experiences />} />
       <Route path='/projects' element={<ProjectPage />} />
-      <Route path='/projects/:title' element={loading ? <LoadingComponent /> : <ProjectDetail />} />
+      <Route path='/projects/:title' element={<ProjectDetail />} />
+      <Route path='/resume' element={<Resume />} />
       <Route path='/wordpress' element={<WordpressRedirect />} />
       <Route path='*' element={<Error404 />} />
     </Routes>
@@ -54,6 +56,7 @@ const Website = () => {
       <Route path='/projects' element={<LoadingComponent />} />
       <Route path='/projects/:title' element={<LoadingComponent />} />
       <Route path='/wordpress' element={<WordpressRedirect />} />
+      <Route path='/resume' element={<Resume />} />
       <Route path='*' element={<Error404 />} />
     </Routes>
   );
