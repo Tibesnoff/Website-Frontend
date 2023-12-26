@@ -37,6 +37,9 @@ const Navbar = () => {
         <a href='/experiences'>Experiences</a>
       </div>
       <div className={navItemContainer}>
+        <a href='/resume'>Resume</a>
+      </div>
+      <div className={navItemContainer}>
         <a className='github-logo' href='https://github.com/Tibesnoff' target='blank_'>
           Github
         </a>
