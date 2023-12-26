@@ -6,7 +6,7 @@ import DropdownSection from '../../Helpers/DropdownSection';
 
 const Experiences = () => {
   const { experienceData } = React.useContext(globalContext) as globalContextType;
-
+  console.log(experienceData);
   const [expanded, setExpanded] = React.useState<{ [key: number]: boolean }>({});
 
   React.useEffect(() => {
@@ -31,7 +31,7 @@ const Experiences = () => {
 
   const renderExperienceData = () => {
     return experienceData.map((value: ExperienceModel) => {
-      const { id, title, description, location, type, startDate, endDate } = value;
+      const { id, title, description, location, type, start_date, end_date } = value;
       const isExpanded = expanded[id];
 
       return (
@@ -40,9 +40,7 @@ const Experiences = () => {
           <h2 className='text-xl'>
             {location} - {type}
           </h2>
-          <h3 className='text-lg'>
-            {startDate} - {endDate}
-          </h3>
+          <h3 className='text-lg'>{`${start_date} - ${end_date}`}</h3>
           {DropdownSection({ expand: isExpanded, setExpand: setExpanded, id })}
           {isExpanded && renderDropdownSection(description, id)}
         </div>
