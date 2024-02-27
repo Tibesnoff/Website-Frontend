@@ -25,7 +25,7 @@ const AboutMe = () => {
   const RenderDescription = ({ paragraph, index, id }: RenderDescriptionProps) => {
     return (
       <div className='p-4 pl-8' key={`${id}-${index}`}>
-        <p>{paragraph}</p>
+        <Text className='text-xl'>{paragraph}</Text>
       </div>
     );
   };
