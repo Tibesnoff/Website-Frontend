@@ -7,3 +7,14 @@ export interface DropdownSectionProps {
   >;
   id: number;
 }
+
+export interface RenderDropdownSectionProps {
+  description: string[];
+  id: number;
+}
+
+export interface RenderDescriptionProps {
+  paragraph: string;
+  index: number;
+  id: number;
+}

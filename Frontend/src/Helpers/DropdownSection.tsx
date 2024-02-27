@@ -15,7 +15,7 @@ const DropdownSection = (props: DropdownSectionProps) => {
     <img
       src={'https:\\\\img.icons8.com\\ios-filled\\50\\000000\\expand-arrow.png'}
       alt='expand'
-      className={expand ? 'rotate-180' : ''}
+      className={`${expand ? 'rotate-180' : ''} size-1/15 cursor-pointer`}
       onClick={() => toggleExpanded(id)}
     />
   );
