@@ -2,13 +2,17 @@ import React from 'react';
 import globalContext from '../../Context/globalContext';
 import { globalContextType } from '../../Types/globalContextType';
 import { ProjectModel, tag } from '../../Types/Project';
+import Title from '../../StylizedComponents/Title';
+import Text from '../../StylizedComponents/Text';
+import { textClassNames } from '../../StylizedComponents/Types/TextType';
+
 const ProjectPage = () => {
   const { projectsData } = React.useContext(globalContext) as globalContextType;
 
   const tag = (tag: tag) => {
     return (
       <div key={tag.id} className='bg-blue-400 p-1 text-center rounded-lg w-fit h-full text-nowrap'>
-        <h1 className='text-md'>{tag.name}</h1>
+        <Text>{tag.name}</Text>
       </div>
     );
   };
@@ -45,8 +49,8 @@ const ProjectPage = () => {
           {project.tags.map((t) => tag(t))}
         </div>
         <div className='divide-y-2 divide-solid divide-blue-600 p-6 '>
-          <h1 className='text-2xl'>{project.title}</h1>
-          <h1 className='mt-2'>{project.description[0]}</h1>
+          <Text className='text-2xl font-bold'>{project.title}</Text>
+          <Text className='mt-2'>{project.description[0]}</Text>
         </div>
       </a>
     );
@@ -54,12 +58,17 @@ const ProjectPage = () => {
 
   return (
     <div className='projectsPage'>
-      <h1 className='text-2xl font-bold'>My Projects</h1>
-      <h2>The following is a quick list of all of my projects that I have completed</h2>
-      <h2>
-        Click on a title that interests you to go to its respective github page or click on a project in the projects dropdown to navigate
-        to its page
-      </h2>
+      <Title className='rounded-b-none' textClassName={textClassNames.pageTitleClassName}>
+        My Projects
+      </Title>
+      <div className='rounded-b-xl bg-blue-200 size-full flex flex-col justify-center items-center text-center p-3'>
+        <Text className='text-xl'>
+          The following is a quick list of all of my projects that I have completed
+          <br />
+          Click on a title that interests you to go to its respective github page or click on a project in the projects dropdown to navigate
+          to its page
+        </Text>
+      </div>
       <br />
       <div className='flex h-full mt-auto p-6 justify-start flex-wrap'>
         {projectsData.sort((a, b) => sortTagsAndTitle(a, b)).map((project: ProjectModel) => projectCard(project))}

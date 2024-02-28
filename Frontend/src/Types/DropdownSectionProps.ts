@@ -1,9 +1,9 @@
-export interface DropdownSectionProps {
-  expand: boolean;
-  setExpand: React.Dispatch<
-    React.SetStateAction<{
-      [key: number]: boolean;
-    }>
-  >;
+export interface RenderDropdownSectionProps {
+  description: string[];
+  id: number;
+}
+
+export interface RenderDescriptionProps {
+  paragraph: string;
   id: number;
 }
