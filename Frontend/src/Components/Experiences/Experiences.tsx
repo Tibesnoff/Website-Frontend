@@ -1,57 +1,75 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import globalContext from '../../Context/globalContext';
 import { globalContextType } from '../../Types/globalContextType';
 import { ExperienceModel } from '../../Types/Experiences';
-import DropdownSection from '../../Helpers/DropdownSection';
+import { RenderDescriptionProps, RenderDropdownSectionProps } from '../../Types/DropdownSectionProps';
+import { titleClassNames } from '../../StylizedComponents/Types/TitleType';
+import { textClassNames } from '../../StylizedComponents/Types/TextType';
+import Title from '../../StylizedComponents/Title';
+import Text from '../../StylizedComponents/Text';
 
 const Experiences = () => {
   const { experienceData } = React.useContext(globalContext) as globalContextType;
-  console.log(experienceData);
-  const [expanded, setExpanded] = React.useState<{ [key: number]: boolean }>({});
+  const [expandedId, setExpandedId] = useState<number | null>(null);
 
-  React.useEffect(() => {
-    const initialExpandedState: { [key: number]: boolean } = {};
-    experienceData.forEach((value: ExperienceModel) => {
-      initialExpandedState[value.id] = false;
-    });
-    setExpanded(initialExpandedState);
+  const titleRefs = useRef<React.RefObject<HTMLDivElement>[]>([]);
+
+  useEffect(() => {
+    titleRefs.current = experienceData.map(() => React.createRef());
   }, [experienceData]);
 
-  const renderDescription = (paragraph: string, index: number, id: number) => {
+  useEffect(() => {
+    if (expandedId) {
+      titleRefs.current[expandedId - 1].current?.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [expandedId]);
+
+  const toggleExpanded = (id: number) => {
+    setExpandedId((prevId) => (prevId === id ? null : id));
+  };
+
+  const RenderDescription = ({ paragraph, id }: RenderDescriptionProps) => {
     return (
-      <div className='p-4 pl-8 w-2/3'>
-        <p key={`${id}-${index}`}>{paragraph}</p>
+      <div className='p-4 pl-8' key={id}>
+        <Text className='text-xl'>{paragraph}</Text>
       </div>
     );
   };
 
-  const renderDropdownSection = (description: string[], id: number) => {
-    return description.map((paragraph: string, index: number) => renderDescription(paragraph, index, id));
+  const RenderDropdownSection = ({ description }: RenderDropdownSectionProps) => {
+    return (
+      <div className='w-full'>
+        {description.map((paragraph: string, index: number) => (
+          <RenderDescription paragraph={paragraph} key={index} id={index} />
+        ))}
+      </div>
+    );
   };
 
-  const renderExperienceData = () => {
-    return experienceData.map((value: ExperienceModel) => {
-      const { id, title, description, location, type, start_date, end_date } = value;
-      const isExpanded = expanded[id];
+  const experiencesContent = experienceData.map((value: ExperienceModel) => {
+    const { id, title, description } = value;
+    const isExpanded = id === expandedId;
 
-      return (
-        <div key={id} className='mt-5'>
-          <h1 className='text-2xl'>{title}</h1>
-          <h2 className='text-xl'>
-            {location} - {type}
-          </h2>
-          <h3 className='text-lg'>{`${start_date} - ${end_date}`}</h3>
-          {DropdownSection({ expand: isExpanded, setExpand: setExpanded, id })}
-          {isExpanded && renderDropdownSection(description, id)}
+    return (
+      <div key={id} className='mt-5 w-2/3 flex flex-col justify-center items-center' ref={titleRefs.current[id - 1]}>
+        <Title backgroundClassName={titleClassNames.bodyTitleClassName}>{title}</Title>
+        <div className='rounded-b-xl bg-blue-200 size-full flex flex-col justify-center items-center'>
+          <img
+            src={'https:\\\\img.icons8.com\\ios-filled\\50\\000000\\expand-arrow.png'}
+            alt='expand'
+            className={`${isExpanded ? 'rotate-180' : ''} size-1/15 cursor-pointer`}
+            onClick={() => toggleExpanded(id)}
+          />
+          {isExpanded && <RenderDropdownSection description={description} id={id} />}
         </div>
-      );
-    });
-  };
+      </div>
+    );
+  });
 
   return (
-    <div>
-      <h1 className='text-2xl font-bold'>Experiences</h1>
-      {renderExperienceData()}
+    <div className='w-full h-full flex flex-col justify-center items-center'>
+      <Title textClassName={textClassNames.pageTitleClassName}>Experiences</Title>
+      <div className='flex flex-col content-start justify-center items-center w-full h-full'>{experiencesContent}</div>
     </div>
   );
 };

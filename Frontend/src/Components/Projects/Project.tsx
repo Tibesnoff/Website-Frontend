@@ -1,24 +1,27 @@
 import React from 'react';
 import { ProjectProps } from '../../Types/Project';
+import Title from '../../StylizedComponents/Title';
+import Text from '../../StylizedComponents/Text';
+import { textClassNames } from '../../StylizedComponents/Types/TextType';
 
 const Project = (props: ProjectProps) => {
   const { project } = props;
   return (
     <div>
-      <h1 className='text-2xl font-bold'>{project.title}</h1>
+      <Title textClassName={textClassNames.pageTitleClassName}>{project.title}</Title>
       <div className='p-6'>
         {project.description.map((value, index) => {
           if (value === 'How to Use') {
             return (
-              <h2 className='text-xl mt-6' key={index}>
+              <Text preDefinedClassName={textClassNames.headingClassName} key={index}>
                 {value}
-              </h2>
+              </Text>
             );
           } else
             return (
-              <p className='mt-6' key={index}>
+              <Text className='text-xl' key={index}>
                 {value}
-              </p>
+              </Text>
             );
         })}
       </div>

@@ -10,7 +10,6 @@ const Title: FC<TitleProps> = ({
   ...rest
 }) => {
   const combinedClassName = `${backgroundClassName ?? titleClassNames.defaultClassName} ${className}`;
-  console.log(combinedClassName);
   return (
     <div className={combinedClassName}>
       <Text preDefinedClassName={textClassName} {...rest} />

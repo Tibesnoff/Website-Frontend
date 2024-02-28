@@ -5,7 +5,7 @@ import { textClassNames } from '../../StylizedComponents/Types/TextType';
 
 const Home = () => {
   return (
-    <div className='w-3/4 mx-auto p-4 h-full w-screen'>
+    <div className='w-3/4 mx-auto p-4 h-full w-full'>
       <Title className='rounded-b-none' textClassName={textClassNames.pageTitleClassName}>
         Hello, my name is Tyler Besnoff
       </Title>
