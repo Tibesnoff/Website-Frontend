@@ -15,7 +15,9 @@ const AboutMe = () => {
   const titleRefs = useRef<React.RefObject<HTMLDivElement>[]>([]);
 
   useEffect(() => {
-    titleRefs.current = aboutMeData.map(() => React.createRef());
+    let max = 0;
+    aboutMeData.map(({ id }) => (id > max ? (max = id) : ''));
+    titleRefs.current = new Array(max + 1).fill(null).map(() => React.createRef());
   }, [aboutMeData]);
 
   useEffect(() => {
