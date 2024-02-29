@@ -15,7 +15,9 @@ const Experiences = () => {
   const titleRefs = useRef<React.RefObject<HTMLDivElement>[]>([]);
 
   useEffect(() => {
-    titleRefs.current = experienceData.map(() => React.createRef());
+    let max = 0;
+    experienceData.map(({ id }) => (id > max ? (max = id) : ''));
+    titleRefs.current = new Array(max + 1).fill(null).map(() => React.createRef());
   }, [experienceData]);
 
   useEffect(() => {

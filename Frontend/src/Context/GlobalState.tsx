@@ -48,7 +48,6 @@ const GlobalState: React.FC<PropsWithChildren> = ({ children }) => {
       .then(async (r) => (await r.json()) as IJsonResponse)
       .then((r) => {
         if (r.success) {
-          console.log(r.data);
           setExperienceData(r.data);
         } else {
           console.log(r.error, r.message);
