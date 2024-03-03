@@ -12,6 +12,8 @@ const Experiences = () => {
   const { experienceData } = React.useContext(globalContext) as globalContextType;
   const [expandedId, setExpandedId] = useState<number | null>(null);
 
+  console.log(experienceData);
+
   const titleRefs = useRef<React.RefObject<HTMLDivElement>[]>([]);
 
   useEffect(() => {

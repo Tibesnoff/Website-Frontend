@@ -1,11 +1,11 @@
 import { AboutMeModel } from './AboutMe';
 import { ExperienceModel } from './Experiences';
-import { ProjectModel } from './Project';
+import { projectType } from './Project';
 
 export interface globalContextType {
   aboutMeData: AboutMeModel[];
   experienceData: ExperienceModel[];
-  projectsData: ProjectModel[];
+  projectsData: projectType[];
   setLoading: (_loading: boolean) => void;
   loading: boolean;
 }

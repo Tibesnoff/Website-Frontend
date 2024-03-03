@@ -1,7 +1,7 @@
 import React from 'react';
 import globalContext from '../../Context/globalContext';
 import { globalContextType } from '../../Types/globalContextType';
-import { ProjectModel, tag } from '../../Types/Project';
+import { projectType, tag } from '../../Types/Project';
 import Title from '../../StylizedComponents/Title';
 import Text from '../../StylizedComponents/Text';
 import { textClassNames } from '../../StylizedComponents/Types/TextType';
@@ -17,7 +17,7 @@ const ProjectPage = () => {
     );
   };
 
-  const sortTagsAndTitle = (a: ProjectModel, b: ProjectModel) => {
+  const sortTagsAndTitle = (a: projectType, b: projectType) => {
     const compareTags = () => {
       const tagA = a.tags.map((tag) => tag.name).join('');
       const tagB = b.tags.map((tag) => tag.name).join('');
@@ -26,7 +26,7 @@ const ProjectPage = () => {
     };
 
     const compareTitles = () => {
-      return a.title.localeCompare(b.title);
+      return a.name.localeCompare(b.name);
     };
 
     const tagsComparison = compareTags();
@@ -37,10 +37,10 @@ const ProjectPage = () => {
     }
   };
 
-  const projectCard = (project: ProjectModel) => {
+  const projectCard = (project: projectType) => {
     return (
       <a
-        href={project.githublink}
+        href={project.github_link}
         target='_blank'
         rel='noreferrer'
         className='border-2 border-blue-600 h-auto mr-auto mt-10 w-80 text-center bg-blue-200 hover:bg-blue-300'
@@ -49,7 +49,7 @@ const ProjectPage = () => {
           {project.tags.map((t) => tag(t))}
         </div>
         <div className='divide-y-2 divide-solid divide-blue-600 p-6 '>
-          <Text className='text-2xl font-bold'>{project.title}</Text>
+          <Text className='text-2xl font-bold'>{project.name}</Text>
           <Text className='mt-2'>{project.description[0]}</Text>
         </div>
       </a>
@@ -71,7 +71,7 @@ const ProjectPage = () => {
       </div>
       <br />
       <div className='flex h-full mt-auto p-6 justify-start flex-wrap'>
-        {projectsData.sort((a, b) => sortTagsAndTitle(a, b)).map((project: ProjectModel) => projectCard(project))}
+        {projectsData.sort((a, b) => sortTagsAndTitle(a, b)).map((project: projectType) => projectCard(project))}
       </div>
     </div>
   );
