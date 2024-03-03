@@ -8,7 +8,7 @@ const Project = (props: ProjectProps) => {
   const { project } = props;
   return (
     <div>
-      <Title textClassName={textClassNames.pageTitleClassName}>{project.title}</Title>
+      <Title textClassName={textClassNames.pageTitleClassName}>{project.name}</Title>
       <div className='p-6'>
         {project.description.map((value, index) => {
           if (value === 'How to Use') {

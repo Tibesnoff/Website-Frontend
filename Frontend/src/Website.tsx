@@ -16,7 +16,7 @@ const ProjectDetail = () => {
 
   // Find the project based on the title
   const project = projectsData.find((proj) => {
-    const newTitle = proj.title.split('-')[0].replaceAll(' ', '').toLowerCase();
+    const newTitle = proj.name.split('-')[0].replaceAll(' ', '').toLowerCase();
     return newTitle === title;
   });
 

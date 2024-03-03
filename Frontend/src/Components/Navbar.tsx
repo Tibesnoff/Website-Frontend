@@ -27,7 +27,7 @@ const Navbar = () => {
           {projectsData.map((project) => {
             return (
               <div key={project.id} className='border-t-2 w-auto border-black bg-blue-100 hover:bg-blue-200 p-3'>
-                <a href={`/projects/${project.title.replaceAll(' ', '').toLowerCase()}`}>{project.title}</a>
+                <a href={`/projects/${project.name.replaceAll(' ', '').toLowerCase()}`}>{project.name}</a>
               </div>
             );
           })}

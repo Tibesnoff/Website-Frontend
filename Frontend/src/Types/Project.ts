@@ -1,8 +1,8 @@
-export interface ProjectModel {
+export interface projectType {
   id: number;
-  title: string;
+  name: string;
   description: string[];
-  githublink: string;
+  github_link: string;
   tags: tag[];
 }
 
@@ -12,5 +12,5 @@ export interface tag {
 }
 
 export interface ProjectProps {
-  project: ProjectModel;
+  project: projectType;
 }

@@ -3,7 +3,7 @@ import globalContext from './globalContext';
 import React from 'react';
 import { AboutMeModel } from '../Types/AboutMe';
 import { ExperienceModel } from '../Types/Experiences';
-import { ProjectModel } from '../Types/Project';
+import { projectType } from '../Types/Project';
 import { IJsonResponse } from '../Types/jsonResponse';
 
 const newAPIEndpoint = process.env.REACT_APP_NEW_API_URL;
@@ -12,7 +12,7 @@ const GlobalState: React.FC<PropsWithChildren> = ({ children }) => {
   const [loading, setLoading] = React.useState<boolean>(false);
   const [aboutMeData, setAboutMeData] = React.useState<AboutMeModel[]>([]);
   const [experienceData, setExperienceData] = React.useState<ExperienceModel[]>([]);
-  const [projectsData, setProjectsData] = React.useState<ProjectModel[]>([]);
+  const [projectsData, setProjectsData] = React.useState<projectType[]>([]);
 
   const getAboutMeData = useCallback(async () => {
     await fetch(`${newAPIEndpoint}api/aboutme`, {
